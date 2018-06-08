@@ -1,0 +1,78 @@
+\documentclass{scrartcl}
+
+\usepackage{qrcode}
+
+% QR-CODE HEIGHT
+%
+\newcommand{\qrHeight}{0.5\textwidth}
+
+% QR-CODE LEVEL
+%
+% The QR code specification (ISO 18004:2006) includes four levels of encoding:
+% Low, Medium, Quality, and High, in increasing order of error-correction
+% capabaility.  In general, for a given text a higher error-correction level
+% requires more bits of information in the QR code. The key level=hlevel
+% specificationi selects the minimum acceptable level. The hlevel specificationi
+% may be L, M, Q, or H; the default is M. It may happen that the smallest QR code
+% able to encode the specified text at the desired level is in fact large enough
+% to provide a higher level of error-correction.  If so, qrcode automatically
+% upgrades to the higher error-correction level, and a message is printed in the
+% log file.
+\newcommand{\qrLevel}{H}
+
+
+% ENCRYPTION TYPE
+%
+\newcommand{\qrT}{WPA}
+
+
+% SSID
+%
+\newcommand{\qrS}{MySSID}
+
+% WIFI-PASSWORD
+%
+% The following characters needs to be escaped with a backslash (\)
+%       #$&^_~% \{}
+% This sequence includes a whitespace, which also needs to be excaped
+%
+% The `~` needs some special attention, it needs no backslash but the command
+% `\string`: `\string~`
+%
+% For example the password
+%   Th15~15#My&P455w0rd
+% has to be written like this:
+%   Th15\string~15\#My\&P455w0rd
+\newcommand{\qrP}{MyPassword}
+
+
+% SSID HIDDEN STATUS
+%
+\newcommand{\qrH}{false}
+
+% OTHER QRCODE OPTIONS
+%
+\newcommand{\qrOptions}{}
+
+\begin{document}
+    \begin{center}
+        { \Huge \textbf{WiFi Credentials} }
+    \end{center}
+    \vspace{1cm}
+    \begin{table}[h]
+        \begin{center}
+            \begin{tabular}{rl}
+                \multicolumn{2}{c}{
+                    {
+                        \qrset{height=\qrHeight,level=\qrLevel}
+                        \qrcode[\qrOptions]{WIFI:T:\qrT;S:\qrS;P:\qrP;H:\qrH;}
+                    }
+                } \\\\ \hline \\
+                \textbf{SSID:}          &   \qrS    \\
+                \textbf{Password:}      &   \qrP    \\
+                \textbf{Security:}      &   \qrT    \\
+                \textbf{Hidden:}        &   \qrH    \\
+            \end{tabular}
+        \end{center}
+    \end{table}
+\end{document}
